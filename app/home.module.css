@@ -1,0 +1,59 @@
+@media (max-width: 900px) {
+    .intro {
+        flex-direction: column;
+
+
+    }
+}
+
+.intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-top: 2.25rem;
+    padding: 2rem;
+    color: #314E6B;
+}
+
+.intro-motto span {
+    display: inline-block;
+    font-size: 2.75rem;
+    font-weight: bold;
+}
+.intro-motto span:nth-of-type(2) {
+    color: #5486B8;
+}
+
+.intro-blurb {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+
+    opacity: 0.7;
+
+    margin-top: 1.25rem;
+}
+
+.intro-nav {
+    margin-top: 1.5rem;
+    display: flex;
+    /* justify-content: space-evenly; */
+}
+.intro-nav > * {
+    display: inline-block;
+}
+.intro-nav > :first-child {
+    margin-right: 1rem;
+    padding: 0.4rem 1.2rem;
+
+    font-weight: bold;
+    color: white;
+    background-color: #314E6B;
+
+    border-radius: 1rem;
+}
+.intro-nav > :last-child {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}

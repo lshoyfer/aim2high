@@ -34,8 +34,8 @@ export default function Navbar() {
                 <nav className="menubar-button" onClick={toggleMenuHidden}>
                     <Image 
                         src="./menu.svg"
-                        width={32} 
-                        height={32} 
+                        width={24} 
+                        height={24} 
                         alt="menubar icon"
                         priority
                     />
