@@ -1,19 +1,35 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
 
-export default function Navbar({ children }) {
+export default function Navbar() {
     const [menuHidden, setMenuHidden] = useState(true);
+    const router = useRouter();
+    const pathname = usePathname();
 
     const toggleMenuHidden = () => {
         setMenuHidden(!menuHidden);
     }
 
+    // Upon navigation reset menu state
+    useEffect(() => {
+        setMenuHidden(true);
+    }, [pathname])
+
     return (
         <>
             <header>
-                {children}
+                <Image
+                        src="./logo.svg"
+                        width={142}
+                        height={64}
+                        alt="logo"
+                        className="logo"
+                        onClick={() => router.push('/')}
+                        priority
+                />
 
                 <nav className="menubar-button" onClick={toggleMenuHidden}>
                     <Image 

@@ -1,7 +1,6 @@
 import './globals.css'
 import { Open_Sans } from 'next/font/google'
 import Navbar from '@/components/Navbar'
-import Image from "next/image";
 
 const openSans = Open_Sans({ subsets: ['latin'], display: 'swap' })
 
@@ -14,17 +13,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body className={openSans.className}>
-                <Navbar>
-                    <Image
-                        src="./logo.svg"
-                        width={142}
-                        height={64}
-                        alt="logo"
-                        className="logo"
-                        priority
-                    />
-                </Navbar>
-
+                <Navbar />
                 {children}
             </body>
         </html>
