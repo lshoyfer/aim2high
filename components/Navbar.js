@@ -26,7 +26,6 @@ export default function Navbar() {
                         width={142}
                         height={64}
                         alt="logo"
-                        className="logo"
                         onClick={() => router.push('/')}
                         priority
                 />
@@ -37,7 +36,6 @@ export default function Navbar() {
                         width={24} 
                         height={24} 
                         alt="menubar icon"
-                        priority
                     />
                 </nav>
             </header>

@@ -6,20 +6,25 @@
     }
 }
 
-.intro {
+.text {
+    color: rgba(49, 78, 107, 0.7);
+}
+.intro, .teacher-info {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-sart;
 
-    margin-top: 2.25rem;
     padding: 2rem;
-    color: #314E6B;
+}
+.intro {
+    margin-top: 2.25rem;
 }
 
 .intro-motto span {
     display: inline-block;
     font-size: 2.75rem;
     font-weight: bold;
+    color: rgba(49, 78, 107, 1);
 }
 .intro-motto span:nth-of-type(2) {
     color: #5486B8;
@@ -28,8 +33,6 @@
 .intro-blurb {
     font-size: 1.25rem;
     line-height: 1.75rem;
-
-    opacity: 0.7;
 
     margin-top: 1.25rem;
 }
@@ -42,7 +45,7 @@
 .intro-nav > * {
     display: inline-block;
 }
-.intro-nav > :first-child {
+.intro-nav > :first-child { /* book button */
     margin-right: 1rem;
     padding: 0.4rem 1.2rem;
 
@@ -51,9 +54,85 @@
     background-color: #314E6B;
 
     border-radius: 1rem;
+
+    user-select: none;
+    -webkit-user-select: none;
 }
 .intro-nav > :last-child {
     display: flex;
     align-items: center;
+
     font-weight: 500;
+    color: rgba(49, 78, 107, 1);
+
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.girl-img {
+    margin-top: 2rem;
+    max-width: 100%;
+    height: auto;
+    border-top: 2px solid #314E6B;
+    border-bottom: 2px solid #314E6B;
+}
+
+.teacher-info {
+    background-color: #00000008;
+    padding-top: 2.25rem;
+    margin-top: 2rem;
+}
+.teacher-info-header {
+    font-weight: bold;
+    font-size: 1.5rem;
+
+    display: flex;
+    flex-direction: column;
+
+    margin-right: 1rem;
+}
+.teacher-info-header :first-child {
+    color: rgba(49, 78, 107, 1);
+}
+.teacher-info-header :last-child {
+    color: #5486B8;
+}
+.teacher-info-header-animation-container {
+    display: flex;
+    align-items: center;
+}
+.teacher-info-caption {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+
+    margin-top: 1.25rem;
+
+    border-left: 4px solid #5486B8;
+    border-radius: 1rem;
+    padding: 0.4rem;
+    padding-left: 1rem;
+}
+.teacher-info > div:last-child {
+    width: 100%;
+    margin-top: 2rem;
+
+    display: flex;
+    justify-content: center;
+}
+.teacher-info button {
+    background-color: rgba(108, 171, 235, 0.1);
+    border: 3px solid #5486B8;
+
+    width: fit-content;
+
+    color: rgba(49, 78, 107, 1);
+    font-weight: bold;
+    font-size: 1.5rem;
+
+    padding: 0.6rem 3rem; 
+    border-radius: 0.9rem;
+
+    user-select: none;
+    -webkit-user-select: none;
 }

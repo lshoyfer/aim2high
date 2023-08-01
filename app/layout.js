@@ -1,8 +1,9 @@
-import './globals.css'
-import { Open_Sans } from 'next/font/google'
-import Navbar from '@/components/Navbar'
+import './globals.css';
+import { Open_Sans } from 'next/font/google';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
-const openSans = Open_Sans({ subsets: ['latin'], display: 'swap' })
+const openSans = Open_Sans({ subsets: ['latin'], display: 'swap' });
 
 export const metadata = {
     title: 'Create Next App',
@@ -15,7 +16,8 @@ export default function RootLayout({ children }) {
             <body className={openSans.className}>
                 <Navbar />
                 {children}
+                <Footer />
             </body>
         </html>
-    )
+    );
 }
