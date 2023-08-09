@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./home.module.css";
 import girlImg from "@/public/student-girl.jpg";
 // src: https://www.pexels.com/photo/woman-in-blue-long-sleeve-shirt-holding-white-and-blue-book-5211432/
-import VectorAnimation from "@/components/VectorAnimation";
+import PathAnimation from "@/components/PathAnimation";
 import TeacherButton from "@/components/TeacherButton";
 
 export default function Home() {
@@ -51,7 +51,7 @@ export default function Home() {
                         <div>with</div>
                         <div>Real experience.</div>
                     </div>
-                    <VectorAnimation pathsClassName={styles["path-animation"]}/>
+                    <PathAnimation pathsClassName={styles["path-animation"]}/>
                 </div>
                 <div className={styles["teacher-info-caption"]}>
                     Learn from our team of NYC Public<br />

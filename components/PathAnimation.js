@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
 
-export default function VectorAnimation({ pathsClassName }) {
+export default function PathAnimation({ pathsClassName }) {
     const svgElement = useRef();
     const path1 = useRef();
     const path2 = useRef();
-    const path3 = useRef();
+    const path3 = useRef(); // left to right, this is the rightmost & longest curve
 
     // TODO dynamic scaling based off of screen size, perhaps use intersectionobserver api?
     useEffect(() => {
