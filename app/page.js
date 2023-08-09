@@ -51,7 +51,7 @@ export default function Home() {
                         <div>with</div>
                         <div>Real experience.</div>
                     </div>
-                    <VectorAnimation />
+                    <VectorAnimation pathsClassName={styles["path-animation"]}/>
                 </div>
                 <div className={styles["teacher-info-caption"]}>
                     Learn from our team of NYC Public<br />
