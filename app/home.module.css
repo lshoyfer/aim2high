@@ -183,4 +183,5 @@
 .path-animation {
     stroke-dasharray: 100;
     stroke-dashoffset: 100;
+    transition: stroke-dashoffset 2s ease-in-out;
 }

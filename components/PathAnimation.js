@@ -7,21 +7,31 @@ export default function PathAnimation({ pathsClassName }) {
     const path2 = useRef();
     const path3 = useRef(); // left to right, this is the rightmost & longest curve
 
-    // TODO dynamic scaling based off of screen size, perhaps use intersectionobserver api?
     useEffect(() => {
         const SCALE = 0.15;
         const PATHS = [path1, path2, path3];
         const LONGESTPATHLENGTH = path3.current.getTotalLength();
 
-        const listenerFunction = () => {
-            PATHS.forEach((path) => {
-                const drawOffset = Math.max(LONGESTPATHLENGTH - (window.scrollY * SCALE), 0);
-                path.current.style.strokeDashoffset = drawOffset;
+        const observerCallback = (entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting)
+                    PATHS.forEach((path) => {
+                        path.current.style.strokeDashoffset = 0;    
+                    })
+                else
+                    PATHS.forEach((path) => {
+                        path.current.style.strokeDashoffset = 100;    
+                    })
             });
         }
+        const observer = new IntersectionObserver(observerCallback, {
+            root: null,
+            rootMargin: '0px',
+            threshold: 1
+        })
+        observer.observe(svgElement.current);
 
-        window.addEventListener('scroll', listenerFunction);
-        return () => window.removeEventListener('scroll', listenerFunction);
+        return () => observer.disconnect();
     }, []);
 
     return (
