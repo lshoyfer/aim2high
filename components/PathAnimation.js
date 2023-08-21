@@ -8,19 +8,22 @@ export default function PathAnimation({ pathsClassName }) {
     const path3 = useRef(); // left to right, this is the rightmost & longest curve
 
     useEffect(() => {
-        const SCALE = 0.15;
         const PATHS = [path1, path2, path3];
-        const LONGESTPATHLENGTH = path3.current.getTotalLength();
 
         const observerCallback = (entries, observer) => {
             entries.forEach((entry) => {
+                /*  
+                    the path.current && check is due to the possibility of the observerCallback
+                    still being executed before useEffect cleanup, as in the case of router navigation 
+                    for exmaple 
+                */
                 if (entry.isIntersecting)
                     PATHS.forEach((path) => {
-                        path.current.style.strokeDashoffset = 0;    
+                        path.current && (path.current.style.strokeDashoffset = 0);    
                     })
                 else
                     PATHS.forEach((path) => {
-                        path.current.style.strokeDashoffset = 100;    
+                        path.current && (path.current.style.strokeDashoffset = 100);    
                     })
             });
         }
