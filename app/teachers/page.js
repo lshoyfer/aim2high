@@ -8,7 +8,7 @@ function Links() {
     return (
         <div className={styles.links}>
             <Link href="/book">About</Link>
-            <Link href="/book">Book</Link>
+            <Link href="/book">Details</Link>
         </div>
     );
 }

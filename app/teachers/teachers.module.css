@@ -53,7 +53,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
     margin-bottom: 0.5rem; 
+    /* this plus 0.3rem from element below gives 0.8rem,
+    equivalent to name's margin-top for a "centered" / "distinguished" look */
 }
 .main-tags > :first-child { /* name */
     margin-top: 0.8rem;
@@ -73,48 +76,47 @@
     color: rgba(49, 78, 107, 0.7);
 
     margin-top: 0;
-    /* this plus 0.3rem from element below gives 0.8rem,
-    equivalent to name's margin-top for a "centered" / "distinguished" look */
 }
 
 .info {
     list-style-position: inside;
+    list-style-type: none;
+
     font-weight: 600;
+
     color: #5486B8;
-    width: 100%;
-}
-.info > * {
+    background-color: rgba(108, 171, 235, 0.1);
+    
+    border-radius: 16px;
+
+    padding: 1rem;
+}   
+.info > :not(:first-child) {
     margin-top: 0.3rem;
-    padding-left: 0;
+}
+.info > *::before {
+    content: '•';
+    margin-right: 0.5rem;
 }
 
 .links {
     margin-top: 0.8rem;
-
-    display: flex;
-    justify-content: center
 }
-.links > :first-child { /* about link */
-    padding: 0.4rem 1.2rem;
+.links > * { /* about link */
+    padding: 0.5rem 1.4rem;
     font-weight: bold;
     color: white;
     background-color: #314E6B;
 
-    border-radius: 1rem;
+    border-radius: 16px; /* using fixed or pecentage based border-radius from now on */
+
+    /* setting children to inline-block or .links to flex/grid or its overflow to auto/hidden
+        makes .links consider the children's padding in its own height. I opted for this */
+    display: inline-block;
 
     user-select: none;
     -webkit-user-select: none;
-
+}
+.links > :first-child {
     margin-right: 1rem;
-}
-.links > :last-child { /* book link */
-    padding: 0.4rem 1.2rem;
-    font-weight: bold;
-    color: white;
-    background-color: #314E6B;
-
-    border-radius: 1rem;
-
-    user-select: none;
-    -webkit-user-select: none;
 }
