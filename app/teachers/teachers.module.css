@@ -1,22 +1,66 @@
-.container {
+.container, .container-wrapper {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
 
+.container {
+    position: relative;
+
+    margin-top: 1rem;
+    padding-top: 1rem;    
+    padding-bottom: 2rem;
+
+    border-top: 12px solid #314E6B;
+}
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+
+    background-color: #ffffff;
+    opacity: 0.1;
+    background-image:  linear-gradient(135deg, #6cabeb 25%, transparent 25%), linear-gradient(225deg, #6cabeb 25%, transparent 25%), linear-gradient(45deg, #6cabeb 25%, transparent 25%), linear-gradient(315deg, #6cabeb 25%, #ffffff 25%);
+    background-position:  6px 0, 6px 0, 0 0, 0 0;
+    background-size: 6px 6px;
+    background-repeat: repeat;
+}
+
+
 .card { 
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 0 1 calc(33.33% - 1rem);
 
-    margin-right: 1rem;
     padding: 1.5rem;
 
     border: 3px solid #314E6B;
     border-radius: 15px;
 
-    background-color: #00000008;
+    /* background-color: #00000008; */
+    background-color: rgb(255, 255, 255);
+}
+
+@media (min-width: 901px) {
+    .card {
+        flex: 0 1 calc(33.33% - 1.334rem);
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+    }
+    .container .card:first-child {
+        margin-left: 1rem;
+    }
+    .card > :last-child {
+        margin-top: auto;
+    }
+
+    .container-wrapper {
+        padding-top: 1rem;
+    }
 }
 
 @media (max-width: 900px) {
@@ -26,9 +70,15 @@
         align-items: center;
     }
 
+    .container-wrapper { /* for stretch, while .container centers */
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: stretch;
+    }
+
     .card {
         margin: 1rem 1rem 0; /* top | l&r | bot */
-        min-width: calc(100% - 2rem) ;
+        max-width: 444px;
     }
 }
 
@@ -90,6 +140,7 @@
     border-radius: 16px;
 
     padding: 1rem;
+    margin-bottom: 0.8rem;
 }   
 .info > :not(:first-child) {
     margin-top: 0.3rem;
@@ -99,9 +150,6 @@
     margin-right: 0.5rem;
 }
 
-.links {
-    margin-top: 0.8rem;
-}
 .links > * { /* about link */
     padding: 0.5rem 1.4rem;
     font-weight: bold;

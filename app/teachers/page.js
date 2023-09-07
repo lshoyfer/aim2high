@@ -52,55 +52,57 @@ function Card({ pfpPayload: { pfp, alt }, name, role, infoList }) {
 export default function TeachersPage() {
     return (
         <div className={styles.container}>
-            <Card 
-                pfpPayload={{ 
-                    pfp: placeHolderTeacherImg, 
-                    alt: "Profile Picture of Teacher in Brown Suit Jacket and Round Glasses Standing"
-                }} 
-                name="Rimma Rashkovan"
-                role="President"
-                infoList={["College Consulting", "Algebra 1 & 2 • Pre-Calculus", "NYC Public School Certified 7-12 Teacher"]} 
-            />
+            <div className={styles["container-wrapper"]}>
+                <Card
+                    pfpPayload={{
+                        pfp: placeHolderTeacherImg,
+                        alt: "Profile Picture of Teacher in Brown Suit Jacket and Round Glasses Standing"
+                    }}
+                    name="Rimma Rashkovan"
+                    role="President"
+                    infoList={["College Consulting", "Algebra 1 & 2 • Pre-Calculus", "NYC Public School Certified 7-12 Teacher"]}
+                />
 
-            <Card 
-                pfpPayload={{ 
-                    pfp: placeHolderTeacherImg, 
-                    alt: "Profile Picture of Teacher in Brown Suit Jacket and Round Glasses Standing"
-                }} 
-                name="Clare Lee"
-                role="Certified Teacher"
-                infoList={["Geometry", "AP Calculus AB"]} 
-            />
+                <Card
+                    pfpPayload={{
+                        pfp: placeHolderTeacherImg,
+                        alt: "Profile Picture of Teacher in Brown Suit Jacket and Round Glasses Standing"
+                    }}
+                    name="Clare Lee"
+                    role="Certified Teacher"
+                    infoList={["Geometry", "AP Calculus AB"]}
+                />
 
-            <Card 
-                pfpPayload={{ 
-                    pfp: placeHolderTeacherImg, 
-                    alt: "Profile Picture of Teacher in Brown Suit Jacket and Round Glasses Standing"
-                }} 
-                name="Peter Kaplinsky"
-                role="Expert"
-                infoList={["Coding"]} 
-            />
+                <Card
+                    pfpPayload={{
+                        pfp: placeHolderTeacherImg,
+                        alt: "Profile Picture of Teacher in Brown Suit Jacket and Round Glasses Standing"
+                    }}
+                    name="Peter Kaplinsky"
+                    role="Expert"
+                    infoList={["Coding"]}
+                />
 
-            <Card 
-                pfpPayload={{ 
-                    pfp: placeHolderTeacherImg, 
-                    alt: "Profile Picture of Teacher in Brown Suit Jacket and Round Glasses Standing"
-                }} 
-                name="Larry Shoyfer"
-                role="Webmaster"
-                infoList={["Coding"]} 
-            />
+                <Card
+                    pfpPayload={{
+                        pfp: placeHolderTeacherImg,
+                        alt: "Profile Picture of Teacher in Brown Suit Jacket and Round Glasses Standing"
+                    }}
+                    name="Larry Shoyfer"
+                    role="Webmaster"
+                    infoList={["Coding"]}
+                />
 
-            <Card 
-                pfpPayload={{ 
-                    pfp: placeHolderTeacherImg, 
-                    alt: "Profile Picture of Teacher in Brown Suit Jacket and Round Glasses Standing"
-                }} 
-                name="Nikita Afanasyev"
-                role="Expert"
-                infoList={["SHSAT Prep for Specialized High Schools (ELA & Math)"]} 
-            />
+                <Card
+                    pfpPayload={{
+                        pfp: placeHolderTeacherImg,
+                        alt: "Profile Picture of Teacher in Brown Suit Jacket and Round Glasses Standing"
+                    }}
+                    name="Nikita Afanasyev"
+                    role="Expert"
+                    infoList={["SHSAT Prep for Specialized High Schools (ELA & Math)"]}
+                />
+            </div>
         </div>
     )
 }
