@@ -4,7 +4,7 @@
 
 /* Intro Section ------------------------------------------------------------------------------------------- */
 
-.intro, .teacher-info {
+.intro, .courses, .teacher-info {
     padding: 2rem;
 }
 .intro, .intro-container {
@@ -13,9 +13,6 @@
 }
 .intro {
     align-items: center;
-}
-.intro-container {
-    /* align-items: start; */
 }
 
 .intro-motto span {
@@ -77,7 +74,49 @@
     border-bottom: 2px solid #314E6B;
 }
 
-/* Teacher Info ------------------------------------------------------------------------------------------- */
+/* Course Section ------------------------------------------------------------------------------------------- */
+
+/* TODO: Remove unnecessary inner div if you wish to remain with this style */
+
+.courses {
+    display: flex;
+    justify-content: center;
+}
+
+.courses {
+    justify-content: initial;
+    flex-direction: column;
+    align-items: center;
+}
+
+.courses-svg {
+    width: 215px;
+    height: 215px;
+    padding-bottom: 2rem;
+}
+
+.courses-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-size: 1.35rem;
+}
+.courses-list > *:nth-child(-n+4) {
+    color: #5486B8;
+}
+.courses-list > *:nth-child(4n):not(:last-child) {
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #314E6B;
+}
+.courses-list > *:nth-child(4n + 1):not(:last-child) {
+    padding-top: 1rem;
+}
+.courses-list > *:last-child {
+    color: #314E6B;
+}
+
+/* Teacher Info Section ------------------------------------------------------------------------------------------- */
 
 .teacher-info {
     background-color: #00000008;
