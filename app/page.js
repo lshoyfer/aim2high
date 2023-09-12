@@ -38,6 +38,26 @@ export default function Home() {
                 </div>
             </section>
 
+            <section className={styles.maxim}>
+                <div className={styles["maxim-container"]}>
+                    <div className={styles["maxim-title"]}>
+                        We&apos;re a <span>small team</span>
+                    </div>
+                    <p className={styles.text}>
+                        Because we believe in people,<br />
+                        and it is our mission to work<br />
+                        with and educate them.
+                    </p>
+                    <ul className={styles.text}>
+                        <li>No corporate branding</li>
+                        <li>Firsthand communication</li> 
+                        <li>1 to 1 support</li> 
+                        <li>Direct scheduling</li> 
+                        <li>No BS.</li> 
+                    </ul>
+                </div>
+            </section>
+
             <section className={styles.courses}>
                 {/* <svg className={styles["courses-svg"]} width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20.6718 37.5573C20.4252 38.3273 20.292 39.1481 20.292 40.0001V49.4416C20.292 53.2551 22.9837 56.5384 26.7231 57.2863L38.7231 59.6863C39.7588 59.8934 40.8252 59.8934 41.8609 59.6863L53.8609 57.2863C57.6003 56.5384 60.292 53.2551 60.292 49.4416V40.0001C60.292 39.0832 60.1378 38.2024 59.8538 37.3822L40.3165 43.8947C40.1112 43.9631 39.8893 43.9631 39.684 43.8947L20.6718 37.5573Z" stroke="#314E6B" stroke-linecap="round" stroke-linejoin="round" />

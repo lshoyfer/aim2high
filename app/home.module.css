@@ -2,17 +2,20 @@
     color: rgba(49, 78, 107, 0.7);
 }
 
-/* Intro Section ------------------------------------------------------------------------------------------- */
-
-.intro, .courses, .teacher-info {
+.intro, .courses, .teacher-info, .maxim {
     padding: 2rem;
 }
+
+/* Intro Section ------------------------------------------------------------------------------------------- */
+
 .intro, .intro-container {
     display: flex;
     flex-direction: column;
 }
 .intro {
     align-items: center;
+    padding-bottom: 7.5rem;
+    padding-top: 7rem;
 }
 
 .intro-motto span {
@@ -72,6 +75,65 @@
     height: auto;
     border-top: 2px solid #314E6B;
     border-bottom: 2px solid #314E6B;
+}
+
+/* Maxim Section ------------------------------------------------------------------------------------------- */
+
+.maxim, .maxim-container {
+    display: flex;
+}
+.maxim {
+    background-color: #00000008;
+    justify-content: center;
+}
+.maxim-container  {
+    flex-direction: column;
+}
+
+.maxim-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #314E6B;
+    
+    margin-bottom: 0.5rem;
+}
+.maxim-title > span {
+    color: #5486B8;
+}
+.maxim-title + p {
+    /* border-top: 2px solid #314E6B; */
+
+    margin-bottom: 1rem;
+
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.maxim-container > ul {
+    list-style-position: inside;
+    
+    padding: 1rem;
+    border-radius: 20px;
+
+    font-size: 1.2rem;
+
+    color: #5486B8;
+    background-color: rgba(108, 171, 235, 0.1);
+;
+}
+.maxim-container li:not(:last-child) {
+    margin-bottom: 0.65rem;
+}
+.maxim-container li:last-child {
+    font-weight: 700;
+    /* color: #314E6B; */
+    
+}
+
+@media (max-width: 364px) {
+    .maxim-title + p {
+        font-size: 1rem;
+    }
 }
 
 /* Course Section ------------------------------------------------------------------------------------------- */
