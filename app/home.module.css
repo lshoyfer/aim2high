@@ -101,20 +101,20 @@
 .ball.path2 {
     left: 40%;
     top: 10px;
-    animation-delay: 3s;
+    animation-delay: -4s;
     offset-path: path('M 35, 310 L 0,0');
 }
 .ball.path3 {
     top: 50%;
-    left: 35px;
-    animation-delay: 2s;
+    left: 25px;
+    animation-delay: -5s;
     offset-path: path('M 0,0 L 275,-85');
 }
 
 
 @keyframes move {
     from {
-        offset-distance: 100%;
+        offset-distance: 100%
     }
     50% {
         offset-distance: 0%;
@@ -124,10 +124,10 @@
     }
     to {
         z-index: -1;
-        offset-distance: 100%;
+        offset-distance: 100%
     }
 }
-  
+
 .trail {
     width: 15px;
     height: 15px;
