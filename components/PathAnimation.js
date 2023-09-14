@@ -65,17 +65,17 @@ function PathBusinessLogic({ pathsClassName, svgClassName, type }) {
 }
 
 export default function PathAnimation(props) {
-    const [showDesktop, setShowDesktop] = useState(() => window.innerWidth > 614);
+    const [showDesktop, setShowDesktop] = useState(() => globalThis.innerWidth > 614);
 
     useEffect(() => {
         const handleScreenSize = () => {
-            const width = window.innerWidth;
+            const width = globalThis.innerWidth;
             setShowDesktop(width > 614);
         }
         handleScreenSize();
         
-        window.addEventListener("resize", handleScreenSize);
-        return () => window.removeEventListener("resize", handleScreenSize);
+        globalThis.addEventListener("resize", handleScreenSize);
+        return () => globalThis.removeEventListener("resize", handleScreenSize);
     }, []);
 
 
