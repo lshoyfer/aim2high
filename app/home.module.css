@@ -313,7 +313,7 @@
     .courses-list {
         flex-direction: row;
     }
-    .courses-list > div:not(:last-child) {
+    .courses-list > div:not(:last-child{
         padding-bottom: 0;
         padding-right: 1rem;
         
@@ -336,7 +336,7 @@
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: auto auto;
-    
+
 }
 
 .teacher-info-header {
@@ -465,6 +465,14 @@
         font-size: 1.1rem;
     }
 }
+@media (min-width: 687px) {
+    .teacher-info {
+        column-gap: 5rem;
+    }
+    .teacher-info-header {
+        font-size: 2.2rem;
+    }
+}
 
 
 /* SVG Animation ------------------------------------------------------------------------------------------- */
@@ -477,9 +485,11 @@
 
 .desktop-svg {
     grid-column: 2;
-    grid-row: 1 / 3;
+    grid-row: 1 / 2;
 
     width: 212px;
     height: 210px;
 
+    justify-self: flex-start;
+    align-self: center;
 }
