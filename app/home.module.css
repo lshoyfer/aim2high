@@ -14,8 +14,9 @@
 .intro {
     align-items: center;
     justify-content: center;
-    padding-bottom: 7.5rem;
-    padding-top: 7rem;
+
+    /* top | right | bottom | left */
+    padding: 7rem 0 7.5rem 3rem;
 }
 .intro-container {
     flex-direction: column;
@@ -68,6 +69,29 @@
 
     user-select: none;
     -webkit-user-select: none;
+}
+
+@media (max-width: 686px) {
+    .intro {
+        flex-direction: column;
+        padding: 2rem;
+        padding-top: 4rem;
+    }
+    .intro-container {
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 366px) {
+    .intro-blurb {
+        font-size: 1.15rem;
+    }
+}
+@media (max-width: 342px) {
+    .intro-blurb {
+        font-size: 1rem;
+        font-weight: 500;
+    }
 }
 
 /* Globe & Ball Animation ------------------------------------------------------------------------------------------- */
@@ -161,6 +185,7 @@
 .maxim {
     background-color: #00000008;
     justify-content: center;
+    align-items: center;
 }
 .maxim-container  {
     flex-direction: column;
@@ -206,6 +231,36 @@
     
 }
 
+.maxim-img {
+    /* width: 20%; */
+    /* height: auto; */
+    
+    flex: 0 1 300px;
+
+    margin-right: 4rem;
+}
+.maxim-img img {
+    width: 100%;
+    height: auto;
+
+    border-radius: 25px;
+    border: 1px solid #d9d9d9;
+}
+
+
+@media (max-width: 686px) {
+    .maxim {
+        flex-direction: column;
+    }
+    .maxim-img {
+        margin-right: 0;
+        margin-bottom: 2rem;
+        margin-top: 1rem;
+        max-width: 305px;
+    }
+}
+
+
 @media (max-width: 364px) {
     .maxim-title + p {
         font-size: 1rem;
@@ -225,41 +280,58 @@
     justify-content: initial;
     flex-direction: column;
     align-items: center;
-}
-
-.courses-svg {
-    width: 215px;
-    height: 215px;
-    padding-bottom: 2rem;
+    padding-top: 2rem;
 }
 
 .courses-list {
+    /* a bit convoluted but its aight ahahaha */
+    font-size: min(max(calc(5vw), 1.5rem), 30.5px);
+}
+
+.courses-list, .courses-list > div {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    font-size: 1.35rem;
 }
-.courses-list > *:nth-child(-n+4) {
+
+.courses-list > div:first-child {
     color: #5486B8;
 }
-.courses-list > *:nth-child(4n):not(:last-child) {
+.courses-list > div:not(:last-child) {
     padding-bottom: 1rem;
     border-bottom: 2px solid #314E6B;
 }
-.courses-list > *:nth-child(4n + 1):not(:last-child) {
+.courses-list > div:not(:first-child) {
     padding-top: 1rem;
 }
-.courses-list > *:last-child {
+.courses-list > div:last-child > :last-child {
     color: #314E6B;
 }
+
+/* I don't really like it when it becomes horizontal */
+/* @media (min-width: 687px) {
+    .courses-list {
+        flex-direction: row;
+    }
+    .courses-list > div:not(:last-child) {
+        padding-bottom: 0;
+        padding-right: 1rem;
+        
+        border-bottom: none;
+        border-right: 2px solid #314E6B;
+    }
+    .courses-list > div:not(:first-child) {
+        padding-top: 0rem;
+        padding-left: 1rem;
+    }
+} */
+
 
 /* Teacher Info Section ------------------------------------------------------------------------------------------- */
 
 .teacher-info {
     background-color: #00000008;
     padding-top: 2.25rem;
-    margin-top: 2rem;
 
     display: grid;
     grid-template-columns: auto auto;
@@ -361,6 +433,40 @@
     color: rgba(49, 78, 107, 1.5); /* Darken the text color for better contrast */
 }
 
+@media (min-width: 615px) {
+    .teacher-info-header {
+        font-size: 1.75rem;
+    }
+}
+@media (max-width: 385px) {
+    .teacher-info-header {
+        font-size: 1.33rem;
+    }
+}
+@media (max-width: 354px) {
+    .teacher-info-caption {
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+}
+@media (max-width: 330px) {
+    .teacher-info button {
+        font-size: 1.2rem;
+    }
+}
+@media (max-width: 300px) {
+    .teacher-info-header {
+        font-size: 1.1rem;
+    }
+    .teacher-info-caption {
+        font-size: 0.725rem;
+    }
+    .teacher-info button {
+        font-size: 1.1rem;
+    }
+}
+
+
 /* SVG Animation ------------------------------------------------------------------------------------------- */
 
 .path-animation {
@@ -376,36 +482,4 @@
     width: 212px;
     height: 210px;
 
-}
-
-@media (min-width: 615px) {
-    .teacher-info-header {
-        font-size: 1.75rem;
-    }
-}
-
-@media (max-width: 354px) {
-    .teacher-info-caption {
-        font-size: 0.8rem;
-        font-weight: 600;
-    }
-}
-
-@media (max-width: 366px) {
-    .intro-blurb {
-        font-size: 1.15rem;
-    }
-}
-@media (max-width: 342px) {
-    .intro-blurb {
-        font-size: 1rem;
-        font-weight: 500;
-    }
-}
-
-
-@media (max-width: 385px) {
-    .teacher-info-header {
-        font-size: 1.33rem;
-    }
 }
