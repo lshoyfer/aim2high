@@ -65,7 +65,18 @@ function PathBusinessLogic({ pathsClassName, svgClassName, type }) {
 }
 
 export default function PathAnimation(props) {
-    const [showDesktop, setShowDesktop] = useState(() => globalThis.innerWidth > 614);
+    /*
+        Because the state starts off as false, if you load the site exactly
+        where the animation is while on desktop, there's a very very minor pop-in.
+        To tell if we're on "desktop" requires client side APIs so I cannot set
+        the initial state properly or I'd receive nasty Hydration errors so I'm
+        forced into using useEffect, or at least I don't know of any working alternative.
+        Ideally I'd convert all of this to CSS only but I already wrote this
+        and the CSS route has ended up being its own bag of worms so I
+        reverted to this cause in the grand scheme of things it's not a big deal.
+        Maybe at some point I convert it in the future /shrug.
+    */
+    const [showDesktop, setShowDesktop] = useState(false);
 
     useEffect(() => {
         const handleScreenSize = () => {
