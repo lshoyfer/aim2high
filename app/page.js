@@ -75,7 +75,6 @@ export default function Home() {
                         <li>Firsthand communication</li>
                         <li>1 to 1 support</li>
                         <li>Direct scheduling</li>
-                        <li>No BS.</li>
                     </ul>
                 </div>
             </section>
@@ -101,14 +100,6 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-            {/* 
-            <Image
-                className={styles["girl-img"]}
-                src={girlImg}
-                alt="Student Girl in Blue Long Sleeve Shirt Holding White and Blue Book"
-                sizes="(max-width: 900px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                priority
-            /> */}
 
             <section className={`${styles.text} ${styles["teacher-info"]}`}>
                 <div className={styles["teacher-info-container"]}>

@@ -3,6 +3,9 @@
     justify-content: center;
     flex-wrap: wrap;
 }
+.container-wrapper {
+    /* align-items: flex-start; */
+}
 
 .container {
     position: relative;
@@ -38,8 +41,8 @@
 
     padding: 1.5rem;
 
-    border: 3px solid #314E6B;
-    border-radius: 15px;
+    border: 4px solid #314E6B;
+    /* border-radius: 15px; */
 
     /* background-color: #00000008; */
     background-color: rgb(255, 255, 255);
@@ -96,7 +99,7 @@
     height: 100%;
     object-fit: cover;
 
-    border-radius: 15%;
+    border-radius: 50%;
 }
 
 .main-tags {
@@ -129,9 +132,6 @@
 }
 
 .info {
-    list-style-position: inside;
-    list-style-type: none;
-
     font-weight: 600;
 
     color: #5486B8;
@@ -140,31 +140,25 @@
     border-radius: 16px;
 
     padding: 1rem;
-    margin-bottom: 0.8rem;
+    margin-bottom: 1.25rem;
 }   
-.info > :not(:first-child) {
-    margin-top: 0.3rem;
-}
-.info > *::before {
-    content: '•';
-    margin-right: 0.5rem;
-}
 
-.links > * { /* about link */
+.link { /* book link */
     padding: 0.5rem 1.4rem;
+
+    width: 100%;
+
     font-weight: bold;
+    font-size: 1.25rem;
     color: white;
     background-color: #314E6B;
 
     border-radius: 16px; /* using fixed or pecentage based border-radius from now on */
 
-    /* setting children to inline-block or .links to flex/grid or its overflow to auto/hidden
-        makes .links consider the children's padding in its own height. I opted for this */
-    display: inline-block;
+    text-align: center;
+
+    display: block;
 
     user-select: none;
     -webkit-user-select: none;
-}
-.links > :first-child {
-    margin-right: 1rem;
 }
