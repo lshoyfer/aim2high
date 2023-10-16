@@ -14,11 +14,10 @@ export default function Footer() {
             <div>United States</div>
             <div>English</div>
             <div className="links">
-                &bull; <Link href="/book">Book </Link>
-                &bull; <Link href="/book">Teachers </Link>
-                &bull; <Link href="/book">About </Link>
-                &bull; <Link href="/book">Blog </Link>
-                &bull; <Link href="/book">Contact </Link> &bull;
+                &bull; <Link href="/page/book">Book </Link>
+                &bull; <Link href="/teachers">Teachers </Link>
+                &bull; <Link href="/blog">Blog </Link>
+                &bull; <Link href="/page/contact">Contact </Link> &bull;
             </div>
         </footer>
     );

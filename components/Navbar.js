@@ -43,19 +43,16 @@ export default function Navbar() {
             <nav className={"menu" + (menuHidden ? " hidden" : "")}>
                 <ul>
                     <li>
-                        <Link href="/book">Book</Link> 
+                        <Link href="/page/book">Book</Link> 
                     </li>
                     <li>
                         <Link href="/teachers">Teachers</Link> 
                     </li>
                     <li>
-                        <Link href="/about">About</Link> 
-                    </li>
-                    <li>
                         <Link href="/blog">Blog</Link> 
                     </li>
                     <li>
-                        <Link href="/contact">Contact</Link> 
+                        <Link href="/page/contact">Contact</Link> 
                     </li>
                 </ul>
             </nav>

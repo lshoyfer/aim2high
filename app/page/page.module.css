@@ -1,0 +1,8 @@
+.page {
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+    opacity: 1;
+    background-image: radial-gradient(#314E6B 1.3px, #ffffff 1.3px);
+    background-size: 26px 26px;
+}

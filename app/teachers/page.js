@@ -5,13 +5,7 @@ import Link from "next/link";
 // import placeHolderTeacherImg from "@/public/pfp-placeholder.jpg";
 // src: https://www.pexels.com/photo/woman-in-brown-suit-jacket-standing-5212321/
 import { Rimma, Clare, Peter, Larry, Nikita } from "@/public/placeholderImgs";
-
-
-function Links() {
-    return (
-        <Link className={styles.link} href="/book">Book</Link>
-    );
-}
+import SvgLink from "@/components/SvgLink";
 
 /**
  * @typedef {Object} PfpPayload
@@ -26,8 +20,10 @@ function Links() {
  * @param {string} props.name - Name of the teacher
  * @param {("President" | "Webmaster" | "Certified Teacher" | "Expert")} props.role - Role of teacher to organization if applicable
  * @param {string} props.desc - Description/about me text
+ * @param {React.Component} props.children - React Children used for custom html insert below pricing as needed
+ * 
  */
-function Card({ pfpPayload, name, role, desc }) {
+function Card({ pfpPayload, name, role, desc, children }) {
     return (
         <div className={styles.card}>
             <div className={styles["profile-picture"]}>
@@ -39,10 +35,11 @@ function Card({ pfpPayload, name, role, desc }) {
                 <div>{name}</div>
                 <div>{role}</div>
             </div>
+            {children}
             <p className={styles.info}>
                 {desc}
             </p>
-            <Links />
+            <Link className={styles.link} href="/page/book">Book</Link>
         </div>
     );
 }
@@ -56,7 +53,20 @@ export default function TeachersPage() {
                     name="Rimma Rashkovan"
                     role="President"
                     desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et gravida est."
-                />
+                >
+                    <Link 
+                        href="/page/consulting"
+                        className={styles["consulting-link"]} 
+                    >
+                        <span>College Admissions Consulting</span>
+                        <SvgLink className={styles["consulting-link-svg"]} />
+                        {/* 
+                            unlikely to happen but for like a range of 3px, technically
+                            only the svg can overflow and make a weird appearance,
+                            but idt it's a big enough deal to fix
+                         */}
+                    </Link>
+                </Card>
 
                 <Card
                     pfpPayload={Clare}

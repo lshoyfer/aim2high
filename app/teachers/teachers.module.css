@@ -143,15 +143,12 @@
     margin-bottom: 1.25rem;
 }   
 
-.link { /* book link */
+.link, .consulting-link { /* book link */
     padding: 0.5rem 1.4rem;
 
     width: 100%;
 
     font-weight: bold;
-    font-size: 1.25rem;
-    color: white;
-    background-color: #314E6B;
 
     border-radius: 16px; /* using fixed or pecentage based border-radius from now on */
 
@@ -161,4 +158,26 @@
 
     user-select: none;
     -webkit-user-select: none;
+}
+.link {
+    font-size: 1.25rem;
+    color: white;
+    background-color: #314E6B;
+}
+
+
+.consulting-link {
+    font-size: 1.25rem;
+    width: fit-content;
+    font-weight: 600;
+    color: #5486B8;
+    /* color:#6cabeb; */
+    background-color: rgba(108, 171, 235, 0.05);
+    margin-bottom: 1.25rem;
+}
+.consulting-link-svg {
+    margin-left: 0.15rem;
+    width: 1.30em;
+    height: 1.30em;
+    vertical-align: text-bottom;
 }
