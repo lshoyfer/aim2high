@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import logoSvg from "@/public/logo.svg";
+import menuSvg from "@/public/menu.svg"
 
 export default function Navbar() {
     const [menuHidden, setMenuHidden] = useState(true);
@@ -22,7 +24,8 @@ export default function Navbar() {
         <>
             <header>
                 <Image
-                        src="./logo.svg"
+                        src={logoSvg}
+                        // src="./logo.svg"
                         width={142}
                         height={64}
                         alt="logo"
@@ -32,7 +35,8 @@ export default function Navbar() {
 
                 <nav className="menubar-button" onClick={toggleMenuHidden}>
                     <Image 
-                        src="./menu.svg"
+                        // src="./menu.svg"
+                        src={menuSvg}
                         width={24} 
                         height={24} 
                         alt="menubar icon"

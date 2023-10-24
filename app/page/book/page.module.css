@@ -1,0 +1,55 @@
+.buttons {
+    display: flex;
+    /* flex-direction: column; */
+    margin-top: 1rem;
+    align-self: center;
+}
+
+.buttons > * {
+    border: 1.5px solid #314E6B;
+    /* border-radius: 10px; */
+    padding: 0.3rem 1rem;
+    color: #5486B8;
+    font-weight: 600;
+    background-color: inherit;
+    font-size: 1rem;
+    font-family: inherit;
+    text-align: center;
+}
+.buttons > :not(:last-child) {
+    margin-right: 1rem;
+}
+
+.buttons > *:active {
+    color: #6DACFF;
+    transform: scale(0.99);
+}
+
+@media (max-width: 389px) {
+    .buttons > * {
+        padding: 0.15rem 0.5rem;
+    }
+}
+@media (max-width: 357px) {
+    .buttons > * {
+        font-size: 0.92rem;
+    }
+}
+
+.copied-popup {
+    margin-top: 1rem;
+    /* color: rgb(0, 187, 0);    */
+    color:#5486B8;;
+    font-size: 1.1rem;
+    font-weight: 600;
+    align-self: center;
+    padding: 0.2rem 0.8rem;
+    border-radius: 10px;
+    background-color: rgb(244, 249, 254);
+    position: absolute;
+    top: 100%;
+    border: 1.5px solid #314E6B;
+}
+.copied-popup::before {
+    content: "✅ ";
+}
