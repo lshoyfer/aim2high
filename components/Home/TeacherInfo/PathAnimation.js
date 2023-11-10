@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
     I sepeated this into a different component so that I could control 
     whether to unmount it and thus call useEffect's cleanup
 */
-function PathBusinessLogic({ pathsClassName, svgClassName, type }) {
+function PathBusinessLogic({ pathsClassName, svgId, type }) {
     const svgElement = useRef();
     const path1 = useRef();
     const path2 = useRef();
@@ -43,7 +43,7 @@ function PathBusinessLogic({ pathsClassName, svgClassName, type }) {
 
     return (
         <>
-            <svg ref={svgElement} className={svgClassName} width="108" height="128" viewBox="0 0 54 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg ref={svgElement} id={svgId} width="108" height="128" viewBox="0 0 54 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                     className={pathsClassName}
                     ref={path1}

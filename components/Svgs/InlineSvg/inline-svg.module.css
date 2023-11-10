@@ -1,0 +1,7 @@
+.outer {
+    white-space: nowrap;
+    user-select: none; /* for the &nbsp; */
+}
+.outer svg {
+    vertical-align: text-bottom;
+}

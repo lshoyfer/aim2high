@@ -1,0 +1,12 @@
+#address {
+    font-style: normal;
+    color: #314E6B;
+    line-height: 1.5rem;
+    font-weight: 500;
+}
+#address svg {
+    width: 1.3em;
+    height: 1.3em;
+    margin-right: 0.15em;
+    vertical-align: text-bottom;
+}

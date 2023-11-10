@@ -1,0 +1,85 @@
+/* Maxim Section ------------------------------------------------------------------------------------------- */
+
+#outer, #container {
+    display: flex;
+}
+#outer {
+    background-color: #00000008;
+    justify-content: center;
+    align-items: center;
+}
+#container  {
+    flex-direction: column;
+}
+
+#title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #314E6B;
+    
+    margin-bottom: 0.5rem;
+}
+#title > span {
+    color: #5486B8;
+}
+#title + p {
+    /* border-top: 2px solid #314E6B; */
+
+    margin-bottom: 1rem;
+
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+#container > ul {
+    list-style-position: inside;
+    
+    padding: 1rem;
+    border-radius: 16px;
+
+    font-size: 1.2rem;
+
+    color: #5486B8;
+    background-color: rgba(108, 171, 235, 0.1);
+;
+}
+#container li:not(:last-child) {
+    margin-bottom: 0.65rem;
+}
+
+#img-container {
+    /* width: 20%; */
+    /* height: auto; */
+    
+    flex: 0 1 300px;
+
+    margin-right: 4rem;
+}
+#img-container img {
+    width: 100%;
+    height: auto;
+
+    border-radius: 26px;
+    border: 1px solid #d9d9d9;
+}
+
+
+@media (max-width: 686px) {
+    #outer {
+        flex-direction: column;
+    }
+    #img-container {
+        margin-right: 0;
+        margin-bottom: 2rem;
+        margin-top: 1rem;
+        max-width: 305px;
+    }
+}
+
+
+@media (max-width: 364px) {
+    #title + p {
+        font-size: 1rem;
+    }
+}
+

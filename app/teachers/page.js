@@ -5,7 +5,7 @@ import Link from "next/link";
 // import placeHolderTeacherImg from "@/public/pfp-placeholder.jpg";
 // src: https://www.pexels.com/photo/woman-in-brown-suit-jacket-standing-5212321/
 import { Rimma, Clare, Peter, Larry, Nikita } from "@/public/placeholderImgs";
-import SvgLink from "@/components/SvgLink";
+import { InlineSvg, LinkSvg } from "@/components/Svgs";
 
 /**
  * @typedef {Object} PfpPayload
@@ -58,13 +58,12 @@ export default function TeachersPage() {
                         href="/page/consulting"
                         className={styles["consulting-link"]} 
                     >
-                        <span>College Admissions Consulting</span>
-                        <SvgLink className={styles["consulting-link-svg"]} />
-                        {/* 
-                            unlikely to happen but for like a range of 3px, technically
-                            only the svg can overflow and make a weird appearance,
-                            but idt it's a big enough deal to fix
-                         */}
+                        <span>
+                            College Admissions Consulting
+                            <InlineSvg>
+                                <LinkSvg className={styles["consulting-link-svg"]} />
+                            </InlineSvg>
+                        </span>
                     </Link>
                 </Card>
 

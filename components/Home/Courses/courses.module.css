@@ -1,0 +1,24 @@
+#list {
+    /* a bit convoluted but its aight ahahaha */
+    font-size: min(max(calc(5vw), 1.5rem), 30.5px);
+}
+
+#list, #list > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#list > div:first-child {
+    color: #5486B8;
+}
+#list > div:not(:last-child) {
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #314E6B;
+}
+#list > div:not(:first-child) {
+    padding-top: 1rem;
+}
+#list > div:last-child > :last-child {
+    color: #314E6B;
+}

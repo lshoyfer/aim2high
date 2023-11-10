@@ -1,0 +1,158 @@
+/* Intro Section ------------------------------------------------------------------------------------------- */
+
+#outer, #container {
+    display: flex;
+}
+#outer {
+    align-items: center;
+    justify-content: center;
+
+    /* top | right | bottom | left */
+    padding: 7rem 0 7.5rem 3rem;
+}
+#container {
+    flex-direction: column;
+}
+
+#motto span {
+    display: inline-block;
+    font-size: 2.75rem;
+    font-weight: bold;
+    color: rgba(49, 78, 107, 1);
+}
+#motto span:nth-of-type(2) {
+    color: #5486B8;
+}
+
+#blurb {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+
+    margin-top: 1.25rem;
+}
+
+#nav {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+#nav > * {
+    display: inline-block;
+}
+#nav > :first-child { /* book button */
+    margin-right: 1rem;
+    padding: 0.4rem 1.2rem;
+
+    font-weight: bold;
+    color: white;
+    background-color: #314E6B;
+
+    border-radius: 16px;
+
+    user-select: none;
+    -webkit-user-select: none;
+}
+#nav svg {
+    width: 1.3em;
+    height: 1.3em;
+
+    font-weight: 500;
+    color: rgba(49, 78, 107, 1);
+}
+
+@media (max-width: 686px) {
+    #outer {
+        flex-direction: column;
+        padding: 2rem;
+        padding-top: 4rem;
+    }
+    #container {
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 366px) {
+    #blurb {
+        font-size: 1.15rem;
+    }
+}
+@media (max-width: 342px) {
+    #blurb {
+        font-size: 1rem;
+        font-weight: 500;
+    }
+}
+
+/* Globe & Ball Animation ------------------------------------------------------------------------------------------- */
+
+#globe {
+    position: relative;
+}
+
+#globe svg {
+    z-index: 0;
+}
+
+.ball {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    
+    position: absolute;
+    z-index: 1;
+
+    offset-distance: 100%;
+    offset-rotate: 0deg;
+    
+    animation: move 7s infinite ease-in-out;
+}
+.ball.path1 {
+    top: 55px;
+    left: 55px;
+    offset-path: path('M 210,210 L 0,0');
+}
+.ball.path2 {
+    left: 40%;
+    top: 10px;
+    animation-delay: -4s;
+    offset-path: path('M 35, 310 L 0,0');
+}
+.ball.path3 {
+    top: 50%;
+    left: 25px;
+    animation-delay: -5s;
+    offset-path: path('M 0,0 L 275,-85');
+}
+
+
+@keyframes move {
+    from {
+        offset-distance: 100%
+    }
+    50% {
+        offset-distance: 0%;
+    }
+    80% {
+        z-index: -1;
+    }
+    to {
+        z-index: -1;
+        offset-distance: 100%
+    }
+}
+
+.trail {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    position: absolute;
+    opacity: 1;
+    /* display: flex; */
+    transform-origin: center center;
+    transition: all 0.1s ease-in
+}
+.trail.fading {
+    opacity: 0;
+    transform: scale(0.2);
+}
+

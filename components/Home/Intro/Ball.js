@@ -1,8 +1,16 @@
 "use client";
-import styles from "@/app/home.module.css";
+import styles from "./intro.module.css";
 import { useEffect, useRef, useState } from 'react';
 
 const TRAILCOUNT = 30; // 30-40 are magic numbers
+
+/** TODO: Rewrite ALL of this, probably in Canvas API.
+ * I've been thoroughly looking through the code, its design,
+ * and thinking of different design paths, and there's lots of issues
+ * in this code, which solving causes other issues, and so on.
+ * Rewriting this in canvas with a different design is probably 
+ * the best approach.
+*/
 
 function TrailEntity({ fading, styleData }) {
     return (

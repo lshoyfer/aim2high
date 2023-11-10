@@ -1,5 +1,5 @@
 "use client";
-import styles from "./page.module.css";
+import styles from "./buttons.module.css";
 import { useState, useEffect } from "react";
 
 export default function Buttons() {
@@ -22,12 +22,16 @@ export default function Buttons() {
 
     return (
         <>
-            <div className={styles.buttons}>
-                {/* <Link href="https://www.google.com/forms/about">Form Link</Link> */}
-                <button onClick={copyEmailToClipboard}>Copy Email</button>
-                <a href="mailto:aim2highconsulting@gmail.com">Compose Email</a>
+            <div id={styles.container}>
+                <div id={styles.buttons}>
+                    <button className="dramatic-button" onClick={copyEmailToClipboard}>Copy Email</button>
+                    <a className="dramatic-link-button" href="mailto:aim2highconsulting@gmail.com">Compose Email</a>
+                </div>
+                <a id={styles["form-button"]} className="dramatic-link-button" href="https://www.google.com/forms/about/">
+                    Form
+                </a>
             </div>
-            {isCopied && <div className={styles["copied-popup"]}>Copied</div>}
+            {isCopied && <div id={styles["copied-popup"]}>Copied</div>}
         </>
     )
 }

@@ -1,113 +1,67 @@
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
 }
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  min-height: 100vh;
+	max-width: 100vw;
+	overflow-x: hidden;
+	min-height: 100vh;
 
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+main > section {
+	padding: 2rem;
+}
+
+.text {
+    color: rgba(49, 78, 107, 0.7);
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+	color: inherit;
+	text-decoration: none;
+	cursor: pointer;
 }
 
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #00000008;
-  padding: 0.25rem 1rem;
+button, .link-button, .dramatic-link-button {
+	appearance: none;
+	display: block;
+	padding: 0;
+	border: none;
+	cursor: pointer;
+	text-align: center;
+	background-color: transparent;
+	font-family: inherit;
+	user-select: none;
+    -webkit-user-select: none;
+	-moz-user-select: none;
+    transition: transform 0.3s ease;
+}
+button:active, .link-button:active {
+    transform: scale(0.99);
+	/* filter: grayscale(1); */
 }
 
-footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  /* margin-top: 2rem; */
-  padding: 1.5rem 1rem;
-
-  border-top: 32px solid rgba(49, 78, 107, 1); ;
-  background-color: #00000008;
-
-  font-weight: bold;
-  font-size: 0.8rem;
+.dramatic-button, .dramatic-link-button {
+	transition: 0.5s ease;
+	transition-property: transform;
 }
-
-footer > .logo {
-  background-color: rgba(108, 171, 235, 0.1);
-  height: auto; /* tbh idk why this line needs to be here for expected behavior. 
-  i thought the browser default was auto... maybe something to do with border box + padding ...? */
-  width: 11rem;
-  padding: 0.5rem;
-  border-radius: 1rem;
-  margin-bottom: 0.7rem;
+.dramatic-button:active, .dramatic-link-button:active {
+	transform: scale(0.95);
+	filter: contrast(1.35);
 }
-
-footer > :not(:first-child) {
-  margin-top: 0.3rem;
-  color: #314E6B;
-}
-
-footer > .links {
-  margin-top: 1rem;
-  font-weight: 600;
-  font-size: 1rem;
-  color: #5486B8;
-}
-footer > .links > *::before, footer > .links::after {
-  content: "• ";
-  color: #314E6B;
-}
-
-@media (max-width: 350px) {
-  footer > .links {
-    font-size: 0.85rem;
-  }
-}
-
-
-.menubar-button {
-  background-color: #6CABEB33;
-  border-radius: 0.5rem;
-  
-  line-height: 0;
-  padding: 0.3rem 0.7rem;
-}
-
-.menu.hidden {
-  display: none;
-}
-.menu {
-  display: flex;
-  flex-direction: column;
-}
-.menu li {
-  list-style-type: none;
-  color: #314E6B;
-  background-color: #B5D1EE59;
-
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-.menu li:nth-child(-n+4) {
-  border-bottom: 1px dashed #314E6B66;
-}
-.menu li > a {
-  display: block;
-  padding: 0.5rem 0.75rem;
+.dramatic-button:hover, .dramatic-link-button:hover {
+	filter: contrast(1.35);
+	/* filter: grayscale(0.5); */ /* was cool for some but not for all */
 }

@@ -1,21 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
-import svgLogo from "@/public/logo.svg";
+import { LogoSvg } from "@/components/Svgs";
+import styles from "./footer.module.css";
 
 export default function Footer() {
     return (
-        <footer>
-            <Image
-                // src="./logo.svg"
-                src={svgLogo}
-                width={142}
-                height={64}
-                alt="logo"
-                className="logo"
-            />
+        <footer id={styles.footer}>
+            <Link href="/">
+                <LogoSvg id={styles.logo}/>
+            </Link>
             <div>United States</div>
             <div>English</div>
-            <div className="links">
+            <div id={styles.links}>
                 <Link href="/page/book">Book </Link>
                 <Link href="/teachers">Teachers </Link>
                 <Link href="/blog">Blog </Link>
