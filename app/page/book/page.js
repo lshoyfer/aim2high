@@ -1,11 +1,10 @@
-import Buttons from "./Buttons";
+import styles from "./book.module.css";
 
 export default function BookPage() {
     return (
         <>
             <h2>Booking</h2>
             <p>
-                {/* To book, fill out <span><a href="https://www.google.com/forms/about/" style={{textDecoration: "underline", display: "inline"}}>this form</a></span> and */}
                 To book, fill out the form below with what kind 
                 of service you&apos;re interested in and
                 contact <span>aim2highconsulting@gmail.com</span>
@@ -17,7 +16,7 @@ export default function BookPage() {
             <p>
                 We will never charge you before a lesson. All payments are to be done only after a lesson.
             </p>
-            <Buttons />
+            <a href="https://www.google.com/forms/about/" id={styles["form-button"]} className="dramatic-link-button">Form</a>
         </>
     ) 
 }

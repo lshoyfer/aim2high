@@ -1,0 +1,11 @@
+#form-button {
+    align-self: center;
+    text-align: center;
+
+    border: 1.75px solid #314E6B;
+    border-radius: 8px;
+    padding: 0.15rem 2rem;
+    color: #314E6B;
+    font-weight: 600;
+    font-size: 1rem; 
+}

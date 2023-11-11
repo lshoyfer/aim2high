@@ -1,12 +1,19 @@
 #address {
     font-style: normal;
-    color: #314E6B;
-    line-height: 1.5rem;
     font-weight: 500;
+    align-self: center;
+    text-align: center;
+    vertical-align: bottom;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
-#address svg {
-    width: 1.3em;
-    height: 1.3em;
-    margin-right: 0.15em;
-    vertical-align: text-bottom;
+
+#address > :first-child {
+    margin-right: 0.5rem;
+}
+
+#address > span {
+    color: #6CABEB;
 }

@@ -11,9 +11,9 @@ export function TeacherInfo() {
                     <div id={styles.header}>
                         <div>Real teachers</div>
                         <div>with</div>
-                        <div>Real experience.</div>
+                        <div>Real experience</div>
                     </div>
-                    <PathAnimation type="mobile" pathsClassName={styles["path-animation"]} />
+                    <PathAnimation type="mobile" svgId={styles["mobile-svg"]} pathsClassName={styles["path-animation"]} />
                 </div>
                 <div id={styles.caption}>
                     Learn from our team of NYC Public<br />

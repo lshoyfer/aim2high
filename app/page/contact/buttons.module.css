@@ -1,0 +1,30 @@
+
+/* :is / :where are a little too new for comfort, 2021 chrome for example */
+#copy, #compose {
+    /* border: 1.75px solid #314E6B; */
+    border-radius: 8px;
+    color: #314E6B;
+    background-color: inherit;
+    font-weight: 600;
+    font-size: var(--font-size);
+    line-height: 0;
+}
+
+#copy svg, #compose svg {
+    width: 30px;
+    height: auto;
+}
+#copy path {
+    transition: fill 1s ease-in;
+}
+#copy:hover {
+    filter: none;
+}
+#copy:active {
+    filter: none;
+    transform: scale(0.85);
+}
+#copy .copied path {
+    fill: #5486B8;
+    transition: fill 0s ease-in;
+}
