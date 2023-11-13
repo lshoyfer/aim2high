@@ -38,7 +38,12 @@ class ClipEmitter extends EventTarget {
  * Represents a Ball with an orbit path and animation properties.
  */
 class Ball {
-    #path; #x; #y; #accumulator; #stepSign; #clipEmitter; #initAccumulator;
+    // constants
+    #radius = 25;
+    #numTrails = 5;
+    // declarations
+    #path; #x; #y; #accumulator; #stepSign; #clipEmitter; #trailList;
+    // other
     #clipEvent = new CustomEvent("clip");
     #unclipEvent = new CustomEvent("unclip");
     static #ballCount = 0;
@@ -52,6 +57,7 @@ class Ball {
      * @param {number} config.stepRadians - The amount in radians each step of the animation will increment through Math.sin by (controls animation speed).
      */
     constructor({ path, originFactor, stepRadians }) {
+
         this.id = ++Ball.#ballCount;
         this.#clipEmitter = new ClipEmitter(this.id);
 
@@ -72,29 +78,22 @@ class Ball {
         const { centerX, centerY } = this.#path;
 
         // Initialize position fields based off the origin factor
-        this.#initAccumulator = Math.asin(originFactor);
-        this.#accumulator = this.#initAccumulator;
+        this.#accumulator = Math.asin(originFactor);
         const sinMod = Math.sin(this.#accumulator);
+        this.#x = sinMod * xWaveDistance + centerX;
+        this.#y = sinMod * yWaveDistance + centerY;
 
-        this.#x= sinMod * xWaveDistance + centerX;
-        this.#x = sinMod * yWaveDistance + centerY;
+        this.#trailList = Array.from(
+            { length: this.#numTrails }, 
+            (_, i) => ({ x: null, y: null, radius: this.#radius - i * (this.#radius / this.#numTrails) })
+        );
+        // console.log(this.#trailList);
     }
 
-    #calcNextPos(dTime) {
+    calcNextPos(dTime) {
         const { xWaveDistance, yWaveDistance, centerX, centerY } = this.#path;
         
-        const accumulatorDelta = this.#stepSign * this.stepRadians * (dTime/1000); 
-
-        if (Math.abs(accumulatorDelta) >= Math.PI) {
-            /* Typically happens if the window is minimized and dTime grows too high,
-            causing the animations to sync up their accumulators (due to the bottom 
-            checks in this function) which syncs the balls up and ruins the intended offsets */
-            /* This effectively resets all the balls to their origin position 
-                (respecting clipping however) if the window was minimized for too long */
-            this.#accumulator = this.#initAccumulator;
-        } else {
-            this.#accumulator += accumulatorDelta;
-        }
+        this.#accumulator += this.#stepSign * this.stepRadians * (dTime/1000);
         const sinMod = Math.sin(this.#accumulator);
     
         this.#x = sinMod * xWaveDistance + centerX;
@@ -111,9 +110,9 @@ class Ball {
         }
     }
 
-    draw(ctx, dTime) {
+    draw(ctx) {
         ctx.beginPath();
-        ctx.arc(this.#x, this.#y, 25, 0, 2*Math.PI);
+        ctx.arc(this.#x, this.#y, this.#radius, 0, 2*Math.PI);
         ctx.fill();
 
         if (this.#stepSign < 0) {
@@ -121,8 +120,6 @@ class Ball {
         } else {
             this.#clipEmitter.dispatchEvent(this.#unclipEvent);
         }
-
-        this.#calcNextPos(dTime)
     }
 }
 
@@ -146,10 +143,10 @@ class DrawBus {
 
     draw(ctx, dTime) {
         // draw clippable balls first
-        for (const key of Object.keys(this.#bus)) {
-            const { ball, clipped } = this.#bus[key];
+        for (const { ball, clipped } of Object.values(this.#bus)) {
             if (clipped) {
-                ball.draw(ctx, dTime);
+                ball.draw(ctx);
+                ball.calcNextPos(dTime);
             }
         }
 
@@ -163,11 +160,11 @@ class DrawBus {
         ctx.fillStyle = "#314E6B";
         ctx.globalCompositeOperation = "source-over";
 
-        // draw non-clippable balls after
-        for (const key of Object.keys(this.#bus)) {
-            const { ball, clipped } = this.#bus[key];
+        // draw non-clippable balls after 
+        for (const { ball, clipped } of Object.values(this.#bus)) {
             if (!clipped) {
-                ball.draw(ctx, dTime);
+                ball.draw(ctx);
+                ball.calcNextPos(dTime);
             }
         }
     }
@@ -184,6 +181,7 @@ export default function OrbitAnimaton() {
         ctx.strokeStyle = "red";
         ctx.lineWidth = 3;
         
+
         // Still gotta play with the exact numbers and paths probably
         const ballDiagonal = new Ball({
             path: { start: { x: 160, y: 160 }, end: { x: 800, y: 800 } },
@@ -206,11 +204,20 @@ export default function OrbitAnimaton() {
         let lastTime = 0;
         let dTime = 0;
 
+        document.addEventListener("visibilitychange", () => {
+            if (document.visibilityState === "hidden") {
+                dTime = 0;
+                lastTime = 0;
+            }
+        });
+
         const drawBall = (timeStamp) => {
+            // clear balls 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
+
+            // draw balls & trails
             drawBus.draw(ctx, dTime);
-            dTime = timeStamp - lastTime;
+            dTime = (lastTime === 0) ? 0 : timeStamp - lastTime;
             lastTime = timeStamp;
 
             requestAnimationFrame(drawBall);
