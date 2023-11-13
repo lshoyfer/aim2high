@@ -92,7 +92,7 @@ class Ball {
     calcNextPos(dTime) {
         const { xWaveDistance, yWaveDistance, centerX, centerY } = this.#path;
         
-        this.#accumulator += this.#stepSign * this.stepRadians * (dTime/1000);
+        this.#accumulator += this.#stepSign * this.stepRadians * dTime;
         const sinMod = Math.sin(this.#accumulator);
     
         this.#x = sinMod * xWaveDistance + centerX;
@@ -141,6 +141,11 @@ class DrawBus {
     }
 
     draw(ctx, dTime) {
+        // it starts to break over 1000ms (1fps) so this is insurance to
+        // keep the animation offset properly as a last resort
+        if (dTime >= 1000) dTime = 500;
+        dTime /= 1000; // here instead of inside every Ball.draw for better performance
+
         // draw clippable balls first
         for (const { ball, clipped } of Object.values(this.#bus)) {
             if (clipped) {
