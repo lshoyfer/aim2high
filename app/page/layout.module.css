@@ -15,9 +15,8 @@
 }
 
 #content {
-    max-width: 75%;
-    /* background-color: rgb(244, 249, 254); */
-    background-color: #00000002;
+    background-color: rgb(244, 249, 254);
+    /* background-color: #00000002; */
     /* box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); */
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     padding: 1rem;
@@ -66,5 +65,7 @@
 @media (min-width: 768px) {
     #page {
         --font-coefficient: 2.5rem;
+    }
+    #content {
     }
 }

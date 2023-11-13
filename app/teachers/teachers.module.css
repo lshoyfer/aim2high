@@ -1,40 +1,18 @@
-.container, .container-wrapper {
+#container, #container-wrapper {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
-.container-wrapper {
-    /* align-items: flex-start; */
-}
 
-.container {
+#container {
     position: relative;
 
-    /* margin-top: 1rem; */
     padding-top: 1.75rem;    
     padding-bottom: 2rem;
-}
-.container::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
 
-    /* background-color: #ffffff;
-    opacity: 0.1;
-    background-image:  linear-gradient(135deg, #6cabeb 25%, transparent 25%), linear-gradient(225deg, #6cabeb 25%, transparent 25%), linear-gradient(45deg, #6cabeb 25%, transparent 25%), linear-gradient(315deg, #6cabeb 25%, #ffffff 25%);
-    background-position:  6px 0, 6px 0, 0 0, 0 0;
-    background-size: 6px 6px;
-    background-repeat: repeat; */
-    background-color: #ffffff;
-    opacity: 1;
-    background-image: radial-gradient(#314E6B 0.4px, #ffffff 0.4px);
-    background-size: 8px 8px;
+    background-color: rgb(252, 253, 255);
+	border-top: 16px solid rgba(49, 78, 107, 1);
 }
-
 
 .card { 
     display: flex;
@@ -56,26 +34,26 @@
         margin-right: 1rem;
         margin-bottom: 1rem;
     }
-    .container .card:first-child {
+    #container .card:first-child {
         margin-left: 1rem;
     }
     .card > :last-child {
         margin-top: auto;
     }
 
-    .container-wrapper {
+    #container-wrapper {
         padding-top: 1rem;
     }
 }
 
 @media (max-width: 900px) {
-    .container {
+    #container {
         flex-direction: column;
         flex-wrap: nowrap;
         align-items: center;
     }
 
-    .container-wrapper { /* for stretch, while .container centers */
+    #container-wrapper { /* for stretch, while #container centers */
         flex-direction: column;
         flex-wrap: nowrap;
         align-items: stretch;
@@ -145,7 +123,7 @@
     margin-bottom: 1.25rem;
 }   
 
-.link, .consulting-link { /* book link */
+.link, #consulting-link { /* book link */
     padding: 0.5rem 1.4rem;
 
     width: 100%;
@@ -168,7 +146,7 @@
 }
 
 
-.consulting-link {
+#consulting-link {
     font-size: 1.25rem;
     width: fit-content;
     font-weight: 600;
@@ -176,7 +154,7 @@
     background-color: rgba(108, 171, 235, 0.05);
     margin-bottom: 1.25rem;
 }
-.consulting-link-svg {
+#consulting-link-svg {
     width: 1.30em;
     height: 1.30em;
 }

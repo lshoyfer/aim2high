@@ -46,8 +46,8 @@ function Card({ pfpPayload, name, role, desc, children }) {
 
 export default function TeachersPage() {
     return (
-        <div className={styles.container}>
-            <div className={styles["container-wrapper"]}>
+        <div id={styles.container}>
+            <div id={styles["container-wrapper"]}>
                 <Card
                     pfpPayload={Rimma}
                     name="Rimma Rashkovan"
@@ -56,12 +56,12 @@ export default function TeachersPage() {
                 >
                     <Link 
                         href="/page/consulting"
-                        className={styles["consulting-link"]} 
+                        id={styles["consulting-link"]} 
                     >
                         <span>
                             College Admissions Consulting
                             <InlineSvg>
-                                <LinkSvg className={styles["consulting-link-svg"]} />
+                                <LinkSvg id={styles["consulting-link-svg"]} />
                             </InlineSvg>
                         </span>
                     </Link>
