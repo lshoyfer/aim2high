@@ -57,7 +57,6 @@ class Ball {
      * @param {number} config.stepRadians - The amount in radians each step of the animation will increment through Math.sin by (controls animation speed).
      */
     constructor({ path, originFactor, stepRadians }) {
-
         this.id = ++Ball.#ballCount;
         this.#clipEmitter = new ClipEmitter(this.id);
 
@@ -202,11 +201,11 @@ export default function OrbitAnimaton() {
         const drawBus = new DrawBus(ctx, ballDiagonal, ballHorizontal, ballDiagonalMirroredInverse);
 
         let lastTime = 0;
-        let dTime = 0;
+        let dTime = 16.67; // for a smoother unpause/init feel;
 
         document.addEventListener("visibilitychange", () => {
             if (document.visibilityState === "hidden") {
-                dTime = 0;
+                dTime = 16.67;
                 lastTime = 0;
             }
         });
@@ -217,7 +216,7 @@ export default function OrbitAnimaton() {
 
             // draw balls & trails
             drawBus.draw(ctx, dTime);
-            dTime = (lastTime === 0) ? 0 : timeStamp - lastTime;
+            dTime = (lastTime === 0) ? 16.67 : timeStamp - lastTime;
             lastTime = timeStamp;
 
             requestAnimationFrame(drawBall);
