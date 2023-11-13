@@ -38,7 +38,7 @@ class ClipEmitter extends EventTarget {
  * Represents a Ball with an orbit path and animation properties.
  */
 class Ball {
-    #path; #x; #y; #accumulator; #stepSign; #clipEmitter;
+    #path; #x; #y; #accumulator; #stepSign; #clipEmitter; #initAccumulator;
     #clipEvent = new CustomEvent("clip");
     #unclipEvent = new CustomEvent("unclip");
     static #ballCount = 0;
@@ -72,16 +72,29 @@ class Ball {
         const { centerX, centerY } = this.#path;
 
         // Initialize position fields based off the origin factor
-        this.#accumulator = Math.asin(originFactor);
+        this.#initAccumulator = Math.asin(originFactor);
+        this.#accumulator = this.#initAccumulator;
         const sinMod = Math.sin(this.#accumulator);
-        this.#x = sinMod * xWaveDistance + centerX;
-        this.#y = sinMod * yWaveDistance + centerY;
+
+        this.#x= sinMod * xWaveDistance + centerX;
+        this.#x = sinMod * yWaveDistance + centerY;
     }
 
     #calcNextPos(dTime) {
         const { xWaveDistance, yWaveDistance, centerX, centerY } = this.#path;
         
-        this.#accumulator += this.#stepSign * this.stepRadians * (dTime/1000);
+        const accumulatorDelta = this.#stepSign * this.stepRadians * (dTime/1000); 
+
+        if (Math.abs(accumulatorDelta) >= Math.PI) {
+            /* Typically happens if the window is minimized and dTime grows too high,
+            causing the animations to sync up their accumulators (due to the bottom 
+            checks in this function) which syncs the balls up and ruins the intended offsets */
+            /* This effectively resets all the balls to their origin position 
+                (respecting clipping however) if the window was minimized for too long */
+            this.#accumulator = this.#initAccumulator;
+        } else {
+            this.#accumulator += accumulatorDelta;
+        }
         const sinMod = Math.sin(this.#accumulator);
     
         this.#x = sinMod * xWaveDistance + centerX;
