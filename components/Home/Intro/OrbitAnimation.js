@@ -180,6 +180,7 @@ class Ball {
             this.#trailRadii = {};
             for (let i = 0; i < this.#numTrails; ++i)
                 this.#trailRadii[i] = this.#radius - i * (this.#radius / this.#numTrails);
+            console.log(dTimeAvg, this.#numTrails);
         });
         
         for (let i = 0; i < this.#numTrails; ++i)
@@ -299,30 +300,35 @@ export default function OrbitAnimaton() {
 
         // the calculations involved across all the code here to estimate this
         // create a heavy upfront cost to load... but I'm measuring it and it seems fine.
-        /** Provides an okay estimate of the average dTime of this device */
-        const measureAverageDTime = async () => {
+        /** Provides an okay estimate of the average dTime of this device, if the device has dynamic fps, 
+         * oh well, I'd rather not recalcuate all these costly objects and rearrange LL's and arrays
+         * on every frame just to support this. So, dynamic fps like the new iPhone pro's may experience
+         * a very very slight trail length change as they scroll. I may fix this in the future idk.
+         */
+        const measureAverageDTime = () => {
             let lastFrameTime = 0;
             let dTime = 0;
             let total = 0;
-            let frameCount = -2;
+            let frameCount = 0;
             let measureAverageDTimeID;
-
-            const measure = (currentFrameTime) => {
-                dTime = (lastFrameTime === 0) ? 0 : currentFrameTime - lastFrameTime;
-                lastFrameTime = currentFrameTime;
-                total += dTime;
-                ++frameCount;
+        
+            return new Promise((resolve) => {
+                const measure = (currentFrameTime) => {
+                    dTime = (lastFrameTime === 0) ? 0 : currentFrameTime - lastFrameTime;
+                    lastFrameTime = currentFrameTime;
+                    total += dTime;
+        
+                    if (++frameCount >= 20) {
+                        cancelAnimationFrame(measureAverageDTimeID);
+                        resolve((total / frameCount).toFixed(2));
+                    } else {
+                        measureAverageDTimeID = requestAnimationFrame(measure);
+                    }
+                };
+        
                 measureAverageDTimeID = requestAnimationFrame(measure);
-            }
-            measureAverageDTimeID = requestAnimationFrame(measure);
-
-            await new Promise((resolve) => setTimeout(() => {
-                cancelAnimationFrame(measureAverageDTimeID);
-                resolve();
-            }, 200));
-            
-            return ((total/frameCount)).toFixed(2);
-        }
+            });
+        };
         const estimatePromise = measureAverageDTime();
 
         // Still gotta play with the exact numbers and paths probably
@@ -358,7 +364,6 @@ export default function OrbitAnimaton() {
             }
         });
 
-        let frameCount = 0;
         const drawBall = (currentFrameTime) => {
             // clear balls 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
