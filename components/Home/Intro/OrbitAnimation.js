@@ -222,27 +222,15 @@ class DrawBus {
     #constantDTimeFactor = 1 / this.#maxUpdatesPerSecond;
     #dTimeCount = 0;
     #bus = {};
+    #addListener = ({ detail: id }) => { this.#bus[id].clipped = true; };
+    #removeListener = ({ detail: id }) => { this.#bus[id].clipped = false; };
+
     constructor(ctx, ...balls) {
         for (const ball of balls)
             this.#bus[ball.id] = { ball, clipped: ball.startClipped};
 
-        ClipEmitter.conductor.addEventListener("add", ({ detail: id }) => {
-            this.#bus[id].clipped = true;
-        });
-
-        ClipEmitter.conductor.addEventListener("remove", ({ detail: id }) => {
-            this.#bus[id].clipped = false;
-        });
-
-        // NOTE: If you hide the tab and come back there's a little speed up that happens to the balls
-        // but I honestly kind of like it so instead of fixing that I'm going to just keep it haha
-        document.addEventListener("visibilitychange", () => {
-            if (document.visibilityState === "hidden") {
-                this.#constantDTimeFactor = 0; 
-            } else {
-                this.#constantDTimeFactor = 1 / this.#maxUpdatesPerSecond;
-            }
-        });
+        ClipEmitter.conductor.addEventListener("add", this.#addListener);
+        ClipEmitter.conductor.addEventListener("remove", this.#removeListener);
     }
 
     /**
@@ -292,6 +280,15 @@ class DrawBus {
             this.#dTimeCount -= this.#updateInterval;
         }
     }
+
+    set dTimeCount(newValue) {
+        this.#dTimeCount = newValue;
+    }
+
+    cleanup() {
+        ClipEmitter.conductor.removeEventListener("add", this.#addListener);
+        ClipEmitter.conductor.removeEventListener("remove", this.#removeListener);
+    }
 }
 
 export default function OrbitAnimaton() {
@@ -326,6 +323,18 @@ export default function OrbitAnimaton() {
         const DTIME_INITBUFFER = 16.67; // ms; For a smoother unpause/init feel.
         let lastFrameTime = 0;
         let dTime = DTIME_INITBUFFER; 
+        let animationFrameID = null;
+
+        const visiblityListener = () => {
+            if (document.visibilityState === "hidden") {
+                cancelAnimationFrame(animationFrameID);
+                drawBus.dTimeCount = 0;
+                lastFrameTime = 0;
+            } else {
+                requestAnimationFrame(drawBall);
+            }
+        }
+        document.addEventListener("visibilitychange", visiblityListener);
 
         const drawBall = (currentFrameTime) => {
             // draw balls & trails
@@ -333,9 +342,15 @@ export default function OrbitAnimaton() {
             dTime = (lastFrameTime === 0) ? DTIME_INITBUFFER : currentFrameTime - lastFrameTime;
             lastFrameTime = currentFrameTime;
 
-            requestAnimationFrame(drawBall);
+            animationFrameID = requestAnimationFrame(drawBall);
         }
-        requestAnimationFrame(drawBall);
+        animationFrameID = requestAnimationFrame(drawBall);
+
+        return () => {
+            cancelAnimationFrame(animationFrameID);
+            document.removeEventListener("visibilitychange", visiblityListener);
+            drawBus.cleanup();
+        }
     }, []);
 
     // I haven't made this dynamically configurable -- a lot of values mess up if you change width and height here,
