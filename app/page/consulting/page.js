@@ -12,24 +12,32 @@ export default function ConsultingPage() {
             <h3>
                 Included Services
             </h3>
-            <ul>
-                <li>Extracurricular activity advising</li>
-                <li>College list</li>
-                <li>FAFSA</li>
-                <li>CSS Profile</li>
-                <li>Financial goals</li>
-                <li>Academic goals</li>
-                <li>Merit based match</li>
-                <li>Main essay brainstorming</li>
-                <li>Main essay editing</li>
-                <li>Supplements</li>
-                <li>Common App</li>
-                <li>CUNYfirst app</li>
-                <li>College apps that do not participate in the Common App</li>
-                <li>EA, ED, ED2, REA, SCEA, RD, Honors deadlines</li>
-                <li>Interview prep</li>
-                <li>Letters of continued interest</li>
-                <li>Activity sections</li>
+            <ul id={styles.list}>
+                <div>
+                    <li>Extracurricular activity advising</li>
+                    <li>College list</li>
+                    <li>FAFSA</li>
+                    <li>CSS Profile</li>
+                </div>
+                <div>
+                    <li>Financial goals</li>
+                    <li>Academic goals</li>
+                    <li>Merit based match</li>
+                    <li>Main essay brainstorming</li>
+                </div>
+                <div>
+                    <li>Main essay editing</li>
+                    <li>Supplements</li>
+                    <li>Common App</li>
+                    <li>CUNYfirst app</li>
+                    <li>Activity sections</li>
+                </div>
+                <div>
+                    <li>Interview prep</li>
+                    <li>Letters of continued interest</li>
+                    <li>EA, ED, ED2, REA, SCEA, RD, Honors deadlines</li>
+                    <li>College apps that do not participate in the Common App</li>
+                </div>
             </ul>
             <h3>
                 Price
@@ -43,7 +51,7 @@ export default function ConsultingPage() {
             <p>
                 For booking details, see below.
             </p>
-            <Link href="/page/book" id={styles.button} className="dramatic-button">
+            <Link href="/page/book" id={styles.button} className="dramatic-link-button">
                 Book
             </Link>
         </>
