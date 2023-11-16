@@ -2,6 +2,8 @@
 import styles from "./intro.module.css";
 import { useEffect, useRef } from "react";
 
+const TAU = 2*Math.PI;
+
 /**
  * For the linked list FIFO structure I use to implement trails in the animation
  */
@@ -27,7 +29,7 @@ class LinkedList {
             return;
         }
         const node = new Node(data);
-        if (this.#length > this.maxLength)
+        if (this.#length >= this.maxLength)
             this.#pop();
 
         node.next = this.head;
@@ -35,10 +37,7 @@ class LinkedList {
         ++this.#length;
     }
 
-    /** Pops the tail node out 
-     * The tail node is considered dynamically tied to this.maxLength, so
-     * by updating this value (publically), I effectively cut off the excess as a side-effect
-     * (#pop is used when max length is naturally reached to discard old position values). */
+    /** Pops the tail node out. Used when max length is naturally reached to discard old position values. */
     #pop() {
         if (this.#length <= 1) {
             this.head = null;
@@ -56,17 +55,6 @@ class LinkedList {
         --this.#length;
     }
     
-    set maxLength(newMaxLength) {
-        this.#maxLength = newMaxLength;
-        for (const [i, node] of this.entries())
-            if (i === this.#maxLength - 1)
-                node.next = null;
-    }
-
-    get maxLength() {
-        return this.#maxLength;
-    }
-
     *[Symbol.iterator]() { 
         let iterNode = this.head;
         while (iterNode) {
@@ -128,12 +116,12 @@ class ClipEmitter extends EventTarget {
 class Ball {
     // constants
     #radius = 25;
-    #numTrails = 50; // the actual number of trails is computed based off average fps (dTime) but this is used as a constant coefficient in calculation
+    #numTrails = 25;
     #clipEvent = new CustomEvent("clip");
     #unclipEvent = new CustomEvent("unclip");
     // declarations
-    #path; #x; #y; #accumulator; #stepSign; #clipEmitter; #positionHistory;
-    // initializations
+    #path; #x; #y; #accumulator; #stepSign; #clipEmitter; #positionHistory; #stepRadians;
+    // initialization
     #trailRadii = {};
     static #ballCount = 0;
 
@@ -144,15 +132,17 @@ class Ball {
      * @param {number} config.originFactor - A sliding scale of where the ball begins its animation along the path, 
      * in the range set [-1,1], where -1 is at the `start` Point and 1 is at the `end` Point along the path.
      * @param {number} config.stepRadians - The amount in radians each step of the animation will increment through Math.sin by (controls animation speed).
-     * @param {Promise<number>} config.averageDTime - An okay average estimate of dTime for this device as measured in the useEffect for 200ms.
+     * @param {number} [config.startClipped=false] - Whether to start the ball & its trails behind the SVG planet or in front
      */
-    constructor({ path, originFactor, stepRadians, averageDTime }) {
-        this.id = ++Ball.#ballCount;
+    constructor({ path, originFactor, stepRadians, startClipped = false }) {
+        this.id = Ball.#ballCount++;
         this.#clipEmitter = new ClipEmitter(this.id);
 
-        this.stepRadians = stepRadians;
+        this.#stepRadians = stepRadians;
         this.#stepSign = 1;
 
+        this.startClipped = startClipped;
+    
         this.#path = path;
         const { start, end } = this.#path;
 
@@ -173,28 +163,19 @@ class Ball {
         this.#y = sinMod * yWaveDistance + centerY;
 
         this.#positionHistory = new LinkedList({ maxLength: this.#numTrails });
-
-        averageDTime.then((dTimeAvg) => {
-            this.#positionHistory.maxLength = Math.round(this.#numTrails * 10/dTimeAvg);
-            this.#numTrails = this.#positionHistory.maxLength;
-            this.#trailRadii = {};
-            for (let i = 0; i < this.#numTrails; ++i)
-                this.#trailRadii[i] = this.#radius - i * (this.#radius / this.#numTrails);
-            console.log(dTimeAvg, this.#numTrails);
-        });
         
         for (let i = 0; i < this.#numTrails; ++i)
             this.#trailRadii[i] = this.#radius - i * (this.#radius / this.#numTrails);
     }
 
-    calcNextPos(dTime) {
+    calcNextPos(dTimeFactor) {
         const { xWaveDistance, yWaveDistance, centerX, centerY } = this.#path;
         
         // save current position to history buffer
         this.#positionHistory.prepend({ x: this.#x, y: this.#y });
 
         // calculate new position
-        this.#accumulator += this.#stepSign * this.stepRadians * dTime;
+        this.#accumulator += this.#stepSign * this.#stepRadians * dTimeFactor;
         const sinMod = Math.sin(this.#accumulator);
     
         this.#x = sinMod * xWaveDistance + centerX;
@@ -211,17 +192,20 @@ class Ball {
     }
 
     draw(ctx) {
+        // draw balls
         ctx.beginPath();
-        ctx.arc(this.#x, this.#y, this.#radius, 0, 2*Math.PI);
+        ctx.arc(this.#x, this.#y, this.#radius, 0, TAU);
         ctx.fill();
 
+        // read position history & draw trails
         for (const [i, { data: { x, y } }] of this.#positionHistory.entries()) {
             ctx.beginPath();
-            ctx.arc(x, y, this.#trailRadii[i], 0, 2*Math.PI);
+            ctx.arc(x, y, this.#trailRadii[i], 0, TAU);
             ctx.fill();
         }
 
-        if (this.#stepSign < 0) {
+        // dispatch clip state
+        if (this.startClipped ? this.#stepSign > 0 : this.#stepSign < 0) {
             this.#clipEmitter.dispatchEvent(this.#clipEvent);
         } else {
             this.#clipEmitter.dispatchEvent(this.#unclipEvent);
@@ -233,10 +217,14 @@ class Ball {
  * Manages drawing timings of all Balls using ClipEmitter's conductor
  */
 class DrawBus {
+    #maxUpdatesPerSecond = 60; // this essentially sets the frame rate of the animation.
+    #updateInterval = 1000 / this.#maxUpdatesPerSecond;
+    #constantDTimeFactor = 1 / this.#maxUpdatesPerSecond;
+    #dTimeCount = 0;
     #bus = {};
     constructor(ctx, ...balls) {
         for (const ball of balls)
-            this.#bus[ball.id] = { ball, clipped: false};
+            this.#bus[ball.id] = { ball, clipped: ball.startClipped};
 
         ClipEmitter.conductor.addEventListener("add", ({ detail: id }) => {
             this.#bus[id].clipped = true;
@@ -245,19 +233,25 @@ class DrawBus {
         ClipEmitter.conductor.addEventListener("remove", ({ detail: id }) => {
             this.#bus[id].clipped = false;
         });
+
+        // NOTE: If you hide the tab and come back there's a little speed up that happens to the balls
+        // but I honestly kind of like it so instead of fixing that I'm going to just keep it haha
+        document.addEventListener("visibilitychange", () => {
+            if (document.visibilityState === "hidden") {
+                this.#constantDTimeFactor = 0; 
+            } else {
+                this.#constantDTimeFactor = 1 / this.#maxUpdatesPerSecond;
+            }
+        });
     }
 
     /**
      * Manages the draw order of the bus w/ clipping & executes
      * @param {Object} ctx 
      * @param {number} dTime 
-     * @param {Promise<number>} averageDTime 
      */
-    draw(ctx, dTime, averageDTime) {
-        // it starts to break over 1000ms (1fps) so this is insurance to
-        // keep the animation offset properly as a last resort
-        if (dTime >= 1000) dTime = 500;
-        dTime /= 1000; // here instead of inside every Ball.draw for better performance
+    #draw(ctx, dTime) {
+        ctx.clearRect(0, 0, 960, 960);
 
         // draw clippable balls first
         for (const { ball, clipped } of Object.values(this.#bus)) {
@@ -271,7 +265,7 @@ class DrawBus {
         ctx.fillStyle = "black";
         ctx.globalCompositeOperation = "destination-out";
         ctx.beginPath();
-        ctx.arc(480, 480, 332.60, 0, 2*Math.PI);
+        ctx.arc(480, 480, 332.60, 0, TAU);
         ctx.fill();
 
         ctx.fillStyle = "#314E6B";
@@ -285,6 +279,19 @@ class DrawBus {
             }
         }
     }
+
+    draw(ctx, dTime) {
+        // if you're at an FPS < trailUpdatesPerSec for too long I don't want dTimeCount to grow unbounded
+        if (this.#dTimeCount > 1000) 
+            this.#dTimeCount = 0;
+
+        this.#dTimeCount += dTime;
+
+        if (this.#dTimeCount >= this.#updateInterval) {
+            this.#draw(ctx, this.#constantDTimeFactor);
+            this.#dTimeCount -= this.#updateInterval;
+        }
+    }
 }
 
 export default function OrbitAnimaton() {
@@ -293,62 +300,25 @@ export default function OrbitAnimaton() {
     useEffect(() => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d");
-
         ctx.fillStyle = "#314E6B";
-        ctx.strokeStyle = "red";
-        ctx.lineWidth = 3;
-
-        // the calculations involved across all the code here to estimate this
-        // create a heavy upfront cost to load... but I'm measuring it and it seems fine.
-        /** Provides an okay estimate of the average dTime of this device, if the device has dynamic fps, 
-         * oh well, I'd rather not recalcuate all these costly objects and rearrange LL's and arrays
-         * on every frame just to support this. So, dynamic fps like the new iPhone pro's may experience
-         * a very very slight trail length change as they scroll. I may fix this in the future idk.
-         */
-        const measureAverageDTime = () => {
-            let lastFrameTime = 0;
-            let dTime = 0;
-            let total = 0;
-            let frameCount = 0;
-            let measureAverageDTimeID;
-        
-            return new Promise((resolve) => {
-                const measure = (currentFrameTime) => {
-                    dTime = (lastFrameTime === 0) ? 0 : currentFrameTime - lastFrameTime;
-                    lastFrameTime = currentFrameTime;
-                    total += dTime;
-        
-                    if (++frameCount >= 20) {
-                        cancelAnimationFrame(measureAverageDTimeID);
-                        resolve((total / frameCount).toFixed(2));
-                    } else {
-                        measureAverageDTimeID = requestAnimationFrame(measure);
-                    }
-                };
-        
-                measureAverageDTimeID = requestAnimationFrame(measure);
-            });
-        };
-        const estimatePromise = measureAverageDTime();
 
         // Still gotta play with the exact numbers and paths probably
         const ballDiagonal = new Ball({
             path: { start: { x: 160, y: 160 }, end: { x: 800, y: 800 } },
             originFactor: -1,
-            stepRadians: Math.PI/3,
-            averageDTime: estimatePromise
+            stepRadians: Math.PI/3
         });
         const ballHorizontal = new Ball({
             path: { start: { x: 80, y: 480 }, end: { x: 880, y: 480 } },
             originFactor: 0,
             stepRadians: Math.PI/3,
-            averageDTime: estimatePromise
+            startClipped: true
         });
         const ballDiagonalMirroredInverse = new Ball({
             path: { start: { x: 800, y: 160}, end: { x: 160, y: 800} },
-            originFactor: -0.75,
+            originFactor: -0.65,
             stepRadians: Math.PI/3,
-            averageDTime: estimatePromise
+            startClipped: true
         })
 
         const drawBus = new DrawBus(ctx, ballDiagonal, ballHorizontal, ballDiagonalMirroredInverse);
@@ -357,19 +327,9 @@ export default function OrbitAnimaton() {
         let lastFrameTime = 0;
         let dTime = DTIME_INITBUFFER; 
 
-        document.addEventListener("visibilitychange", () => {
-            if (document.visibilityState === "hidden") {
-                dTime = DTIME_INITBUFFER;
-                lastFrameTime = 0;
-            }
-        });
-
         const drawBall = (currentFrameTime) => {
-            // clear balls 
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
             // draw balls & trails
-            drawBus.draw(ctx, dTime, estimatePromise);
+            drawBus.draw(ctx, dTime);
             dTime = (lastFrameTime === 0) ? DTIME_INITBUFFER : currentFrameTime - lastFrameTime;
             lastFrameTime = currentFrameTime;
 
@@ -378,6 +338,8 @@ export default function OrbitAnimaton() {
         requestAnimationFrame(drawBall);
     }, []);
 
+    // I haven't made this dynamically configurable -- a lot of values mess up if you change width and height here,
+    // and I don't plan on making it dynamic as I don't need it, though it's not difficult.
     return (
         <canvas width="960" height="960" id={styles.orbit} ref={canvasRef} />
     )
