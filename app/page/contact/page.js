@@ -19,7 +19,7 @@ export default function BookPage() {
                 On an average business day you should expect a response within the hour. We&apos;re a small business, so please be patient. Thank you.
             </p>
             <address id={styles.address}>
-                <span style={{ fontSize: "1.25rem" }}>aim2highconsulting@gmail.com</span>
+                <span>aim2highconsulting@gmail.com</span>
                 <Buttons />
             </address>
         </>

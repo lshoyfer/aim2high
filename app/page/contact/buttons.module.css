@@ -1,16 +1,16 @@
+#buttons {
+    display: flex;
+    flex-direction: row;
+    padding: 0.3rem;
+    background-color: rgba(108, 171, 235, 0.07);
+    border-radius: 16px
+}
 
-/* :is / :where are a little too new for comfort, 2021 chrome for example */
-#copy, #compose {
-    /* border: 1.75px solid #314E6B; */
-    border-radius: 8px;
-    color: #314E6B;
-    background-color: inherit;
-    font-weight: 600;
-    font-size: var(--font-size);
+#buttons > * {
     line-height: 0;
 }
 
-#copy svg, #compose svg {
+#buttons svg {
     width: 30px;
     height: auto;
 }
@@ -27,4 +27,13 @@
 #copy .copied path {
     fill: #5486B8;
     transition: fill 0s ease-in;
+}
+
+@media (max-width: 490px) {
+    #buttons svg {
+        width: 30px;
+    }
+    #buttons > :first-child {
+        margin-right: 0.25rem;
+    }
 }

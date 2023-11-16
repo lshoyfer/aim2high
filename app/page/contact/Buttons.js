@@ -22,13 +22,13 @@ export default function Buttons() {
     }, [isCopied]);
 
     return (
-        <>
+        <div id={styles.buttons}>
             <button id={styles.copy} className="dramatic-button" onClick={copyEmailToClipboard}>
                 <CopySvg className={isCopied ? styles.copied : null} />
             </button>
             <a id={styles.compose} className="dramatic-link-button" href="mailto:aim2highconsulting@gmail.com">
                 <EmailSvg />
             </a>
-        </>
+        </div>
     )
 }
