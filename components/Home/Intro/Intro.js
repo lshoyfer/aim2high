@@ -19,7 +19,7 @@ export function Intro() {
                     guidance of your dreams.
                 </div>
                 <div id={styles.nav}>
-                    <Link className="dramatic-link-button" href="/page/book">Book</Link>
+                    <Link className="dramatic-link-button" href="/page/consulting">College</Link>
                     <div>
                         <span>
                             Free Lessons
